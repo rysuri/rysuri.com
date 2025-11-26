@@ -113,7 +113,7 @@ function Home() {
                 <Laptop className="info-icon" /> Frontend Developer
               </li>
               <li>
-                <Award className="info-icon" /> AWS + CompTIA Certified
+                <Award className="info-icon" /> AWS Cloud Certified
               </li>
             </ul>
             <p>
