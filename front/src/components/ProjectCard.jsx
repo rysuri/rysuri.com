@@ -6,16 +6,21 @@ import { Globe, Github, Youtube } from "lucide-react";
 function ProjectCard({
   title,
   description,
-  image,
+  thumbnail,
   technologies = [],
   website,
   source,
   showcase,
+  onClick,
 }) {
   return (
-    <article className="card-container project-show">
+    <article
+      className="card-container project-show"
+      onClick={onClick}
+      style={{ cursor: "pointer" }}
+    >
       <div className="gallery-container">
-        <img src={image} alt={title} className="card-img" />
+        <img src={thumbnail} alt={title} className="card-img" />
       </div>
 
       <div className="card-body">

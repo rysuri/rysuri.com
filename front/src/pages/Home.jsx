@@ -91,7 +91,7 @@ function Home() {
           </h3>
 
           <h4 className="hero-tag" id="hero-tag">
-            Web Developer at UNLV
+            Full-Stack Developer at UNLV
           </h4>
         </div>
 
@@ -110,7 +110,7 @@ function Home() {
                 UNLV
               </li>
               <li>
-                <Laptop className="info-icon" /> Frontend Developer
+                <Laptop className="info-icon" /> Full-Stack Developer
               </li>
               <li>
                 <Award className="info-icon" /> AWS Cloud Certified
@@ -131,6 +131,7 @@ function Home() {
             <div className="skills-grid">
               <span>React</span>
               <span>Python</span>
+              <span>Roblox</span>
               <span>C++</span>
               <span>Figma</span>
               <span>JavaScript</span>

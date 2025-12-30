@@ -2,8 +2,48 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 14.5rem;
+  margin-top: 13rem;
   height: 100vh;
+}
+
+.direct-contact {
+  margin: 2rem;
+  text-align: center;
+}
+
+.direct-contact-intro {
+  color: #9ca3af;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+  font-family: "Inter", sans-serif;
+}
+
+.contact-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: #111827;
+
+  border-radius: 8px;
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s;
+  font-size: 0.9rem;
+  font-family: "Inter", sans-serif;
+}
+
+.contact-link:hover {
+  background: rgb(31, 41, 55);
+  border-color: rgb(59, 130, 246);
+  transform: translateY(-2px);
 }
 
 .contact-form {
@@ -17,7 +57,7 @@
   font-family: "Inter", sans-serif;
   font-size: 2rem;
   color: #ffffff;
-  margin-bottom: 1rem;
+  margin-bottom: 0rem;
   margin-top: 0px;
 }
 

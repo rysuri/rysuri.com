@@ -9,15 +9,21 @@
   box-shadow: 0 6px 20px rgba(15, 23, 42, 0.04);
   border-radius: 10px;
   font-family: "Inter", sans-serif;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-container:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 40px rgba(15, 23, 42, 0.15);
 }
 
 .gallery-container {
   width: 100%;
-  height: 220px;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
+  aspect-ratio: 16 / 9;
 }
 .card-img {
   width: 100%;
@@ -65,7 +71,7 @@
   font-weight: 600;
   display: inline-flex;
   align-items: center;
-  gap: 8px; /* space between icon and text */
+  gap: 8px;
 }
 .card-btn--muted {
   background: #f3f4f6;
@@ -76,34 +82,30 @@
   color: #ffffff;
 }
 
-/* Icon sizing and spacing inside action buttons */
 .info-icon {
   width: 16px;
   height: 16px;
-  flex: 0 0 16px; /* don't shrink */
+  flex: 0 0 16px;
   display: inline-block;
 }
-/* Icon sizing and spacing inside action buttons */
+
 .info-icon-git {
   width: 16px;
   height: 16px;
-  flex: 0 0 16px; /* don't shrink */
+  flex: 0 0 16px;
   display: inline-block;
   color: #111827;
 }
-/* Icon sizing and spacing inside action buttons */
+
 .info-icon-show {
   width: 20px;
   height: 20px;
-  flex: 0 0 20px; /* don't shrink */
+  flex: 0 0 20px;
   display: inline-block;
   color: #ffffff;
 }
 
 @media (max-width: 700px) {
-  .gallery-container {
-    height: 160px;
-  }
   .card-title {
     font-size: 1rem;
   }

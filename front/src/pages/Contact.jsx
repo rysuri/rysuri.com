@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaEnvelope, FaLinkedin, FaDiscord } from "react-icons/fa";
 import "../css/pages/Contact.css";
 
 function Contact() {
@@ -45,6 +46,35 @@ function Contact() {
   return (
     <div className="contact">
       <h2 className="header">Contact Me</h2>
+
+      <div className="direct-contact">
+        {/* <p className="direct-contact-intro">Or reach out directly:</p> */}
+        <div className="contact-links">
+          <a
+            href="https://www.linkedin.com/in/rysuri/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="contact-link"
+          >
+            <FaLinkedin size={20} />
+            <span>rysuri</span>
+          </a>
+          <a href="mailto:rysu986@gmail.com" className="contact-link">
+            <FaEnvelope size={20} />
+            <span>rysu986@gmail.com</span>
+          </a>
+          <a
+            href="https://discord.com/channels/@me"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="contact-link"
+          >
+            <FaDiscord size={20} />
+            <span>rysuri.com</span>
+          </a>
+        </div>
+      </div>
+
       <form className="contact-form" onSubmit={handleSubmit}>
         <input
           type="text"
