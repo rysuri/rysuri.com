@@ -7,7 +7,7 @@ import App from "./App.jsx";
 console.log(
   "Website made with React and hosted with AWS. Email me for questions."
 );
-console.log("https://github.com/rysuri/rysuri-website.git");
+console.log("https://github.com/rysuri/rysuri.com");
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

@@ -1,7 +1,7 @@
 import ProjectCard from "../components/ProjectCard";
 import ProjectModal from "../components/ProjectModal";
 import "../css/pages/Projects.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import calderonThumb from "../assets/media/calderon-thumbnail.webp";
 import cupncoThumb from "../assets/media/cupnco.webp";
@@ -63,7 +63,8 @@ const SAMPLE = [
   {
     id: 5,
     title: "UNLV Class Alert",
-    description: "Python application that checks UNLV class availability.",
+    description:
+      "Python application that checks UNLV class availability. Made using the official UNLV website.",
     detailed_description:
       "Serverless app that checks UNLV class availability and notifies students via SMS. Useful for grabbing open seats quickly. The application uses web scraping with Beautiful Soup to monitor class rosters, Selenium for browser automation, and sends instant SMS notifications when seats become available.",
     thumbnail: unlvThumb,
@@ -88,9 +89,10 @@ const SAMPLE = [
   {
     id: 7,
     title: "Professor B - AI Discord Bot",
-    description: "An AI Discord bot that answers user questions in real time.",
+    description:
+      "An AI Discord bot that answers user questions in real time. The ultimate fact-checker.",
     detailed_description:
-      "An AI Discord bot that answers user questions and provides context-aware replies in real time using OpenAI and Discord.py. The bot integrates seamlessly with Discord servers, maintains conversation context, and provides helpful responses across various topics. Features include customizable prefixes, rate limiting, and comprehensive error handling. Join the community server to experience it live.",
+      "An AI Discord bot that answers user questions and provides context-aware replies in real time using OpenAI and Discord.py. The bot integrates seamlessly with Discord servers, maintains conversation context, and provides helpful responses across various topics. Join the community server to experience it live.",
     thumbnail: professorBThumb,
     images: [professorBThumb],
     technologies: ["Python", "OpenAI", "Discord.py"],
@@ -110,6 +112,10 @@ const SAMPLE = [
 
 function Portfolio() {
   const [selectedProject, setSelectedProject] = useState(null);
+
+  useEffect(() => {
+    document.title = "Projects | Ry Suriyathep";
+  }, []);
 
   return (
     <div className="portfolio">

@@ -3,6 +3,7 @@ import gsap from "gsap";
 import "../css/pages/Home.css";
 import { Link } from "react-router-dom";
 import resumePDF from "../assets/media/ry-suriyathep-resume.pdf";
+import { useEffect } from "react";
 
 import CommentSection from "../components/CommentSection.jsx";
 import {
@@ -19,6 +20,11 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 function Home() {
   gsap.registerPlugin(ScrollTrigger);
+
+  useEffect(() => {
+    document.title = "Ry Suriyathep | Full-Stack Developer";
+  }, []);
+
   useGSAP(() => {
     gsap.from("#hero-tag", {
       y: 20,

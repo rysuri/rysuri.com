@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { FaEnvelope, FaLinkedin, FaDiscord } from "react-icons/fa";
 import "../css/pages/Contact.css";
 
@@ -10,6 +10,10 @@ function Contact() {
   });
 
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    document.title = "Contact | Ry Suriyathep";
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
