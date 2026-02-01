@@ -4,10 +4,11 @@ import { Linkedin, Youtube, Github, FileText } from "lucide-react";
 import resumePDF from "../assets/media/ry-suriyathep-resume.pdf";
 
 function Footer() {
+  const currentYear = new Date().getFullYear();
   return (
     <footer className="footer">
       <p>
-        All rights reserved. | <strong>rysuri.com</strong>
+        <strong>rysuri</strong> powered 2025-{currentYear}
       </p>
       <div className="footer-links">
         <a
