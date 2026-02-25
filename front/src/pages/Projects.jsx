@@ -10,6 +10,7 @@ import sonicThumb from "../assets/media/sonicai-sc.webp";
 import professorBThumb from "../assets/media/pbdesc.webp";
 import huntingpackThumb from "../assets/media/huntingpackThumb.webp";
 import portfolio from "../assets/media/portfolio-sc.png";
+import scholarchips from "../assets/media/scholarchips-sc.png";
 import northboundThumb from "../assets/media/northboundThumb.webp";
 
 const SAMPLE = [
@@ -27,29 +28,26 @@ const SAMPLE = [
   },
   {
     id: 2,
-    title: "HUNTING PACK - Roblox Game",
+    title: "ScholarChips",
     description:
-      "A bomb-rigged heavy truck racing to the deactivation zone versus the hunters.",
-    detailed_description: `In "HUNTING PACK", A bomb-rigged heavy truck must stay in motion to survive. Hunters race to bring it down, while Protectors fight to keep it moving. This game features dynamic teamwork mechanics, intense gameplay, and custom 3D models created in Blender. The experience showcases advanced Lua scripting and game design principles.`,
-    thumbnail: huntingpackThumb,
-    images: [huntingpackThumb],
-    technologies: ["Roblox Studio", "Lua", "Blender", "Game Design"],
-    website: "https://www.roblox.com/games/5206826689/HUNTING-PACK",
+      "My team's submission for Rebel Hacks 2026, UNLV's annual Hackathon.",
+    detailed_description:
+      "ScholarChips is a gamified attendance platform where students earn virtual \"chips\" for showing up to school, redeemable for prizes like food vouchers and merchandise. Teachers manage attendance through a simple dashboard, while leaderboards and minigames like a Prize Wheel keep students engaged and motivated to attend. This project was our team's submission for Rebel Hacks 2026, UNLV's annual Hackathon.",
+    thumbnail: scholarchips,
+    images: [scholarchips],
+    technologies: [
+      "React.js",
+      "Node.js",
+      "Express.js",
+      "Supabase",
+      "PostgreSQL",
+    ],
+
+    source: "https://github.com/ignacioparraparra/ScholarChips",
   },
+
   {
     id: 3,
-    title: "Personal Portfolio Website",
-    description: "Modern portfolio website showcasing projects and skills.",
-    detailed_description:
-      "Modern portfolio website showcasing projects and skills. Built with React Router for navigation, GSAP for animations, and features a responsive design with contact form integration. The portfolio demonstrates advanced frontend development techniques including smooth animations, and SEO optimization. Hosted on AWS with continuous deployment.",
-    thumbnail: portfolio,
-    images: [portfolio],
-    technologies: ["React.js", "Node.js", "GSAP", "MongoDB", "AWS"],
-    website: "https://rysuri.com",
-    source: "https://github.com/rysuri/rysuri-website",
-  },
-  {
-    id: 4,
     title: "Sonic Drive-Thru - AI Assistant",
     description: "AI-powered drive-thru assistant prototype.",
     detailed_description:
@@ -61,7 +59,7 @@ const SAMPLE = [
     source: "https://github.com/rysuri/SonicMenu",
   },
   {
-    id: 5,
+    id: 4,
     title: "UNLV Class Alert",
     description:
       "Python application that checks UNLV class availability. Made using the official UNLV website.",
@@ -75,7 +73,7 @@ const SAMPLE = [
   },
 
   {
-    id: 6,
+    id: 5,
     title: "CupnCoShop Storefront",
     description:
       "E-commerce storefront for premium coffee accessories and coffee.",
@@ -87,7 +85,7 @@ const SAMPLE = [
     website: "https://cupncoshop.com",
   },
   {
-    id: 7,
+    id: 6,
     title: "Professor B - AI Discord Bot",
     description:
       "An AI Discord bot that answers user questions in real time. The ultimate fact-checker.",
@@ -97,6 +95,29 @@ const SAMPLE = [
     images: [professorBThumb],
     technologies: ["Python", "OpenAI", "Discord.py"],
     website: "https://discord.com/invite/QZqghTe2k8",
+  },
+  {
+    id: 7,
+    title: "HUNTING PACK - Roblox Game",
+    description:
+      "A bomb-rigged heavy truck racing to the deactivation zone versus the hunters.",
+    detailed_description: `In "HUNTING PACK", A bomb-rigged heavy truck must stay in motion to survive. Hunters race to bring it down, while Protectors fight to keep it moving. This game features dynamic teamwork mechanics, intense gameplay, and custom 3D models created in Blender. The experience showcases advanced Lua scripting and game design principles.`,
+    thumbnail: huntingpackThumb,
+    images: [huntingpackThumb],
+    technologies: ["Roblox Studio", "Lua", "Blender", "Game Design"],
+    website: "https://www.roblox.com/games/5206826689/HUNTING-PACK",
+  },
+  {
+    id: 8,
+    title: "Personal Portfolio Website",
+    description: "Modern portfolio website showcasing projects and skills.",
+    detailed_description:
+      "Modern portfolio website showcasing projects and skills. Built with React Router for navigation, GSAP for animations, and features a responsive design with contact form integration. The portfolio demonstrates advanced frontend development techniques including smooth animations, and SEO optimization. Hosted on AWS with continuous deployment.",
+    thumbnail: portfolio,
+    images: [portfolio],
+    technologies: ["React.js", "Node.js", "GSAP", "MongoDB", "AWS"],
+    website: "https://rysuri.com",
+    source: "https://github.com/rysuri/rysuri-website",
   },
 
   // {
