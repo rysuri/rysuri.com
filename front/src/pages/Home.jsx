@@ -179,9 +179,9 @@ function Home() {
         </div>
 
         {/* <CommentSection className="comment-section" /> */}
-
+        {/* 
         <div className="end-directory">
-          {/* <h1>Oh wait there is more!</h1> */}
+          <h1>Oh wait there is more!</h1>
           <div className="end-links">
             <a className="end-link" href="/contact">
               Contact me
@@ -191,7 +191,9 @@ function Home() {
               View porfolio
             </a>
           </div>
-        </div>
+        </div> */}
+
+        <CommentSection></CommentSection>
       </div>
     </>
   );
