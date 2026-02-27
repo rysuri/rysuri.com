@@ -193,7 +193,7 @@ function Home() {
           </div>
         </div> */}
 
-        <CommentSection></CommentSection>
+        {/* <CommentSection></CommentSection> */}
       </div>
     </>
   );
