@@ -97,7 +97,7 @@ function Home() {
           </h3>
 
           <h4 className="hero-tag" id="hero-tag">
-            Full-Stack Developer at UNLV
+            Software Engineer at UNLV
           </h4>
         </div>
 
