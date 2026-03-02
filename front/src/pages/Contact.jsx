@@ -10,6 +10,7 @@ function Contact() {
   });
 
   const [loading, setLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     document.title = "Contact | Ry Suriyathep";
@@ -63,10 +64,26 @@ function Contact() {
             <FaLinkedin size={20} />
             <span>rysuri</span>
           </a>
-          <a href="mailto:rysu986@gmail.com" className="contact-link">
-            <FaEnvelope size={20} />
-            <span>rysu986@gmail.com</span>
-          </a>
+          <div className="email-copy-container">
+            {copied && <div className="copy-message">Copied!</div>}
+            <a
+              href="#"
+              className="contact-link"
+              onClick={(e) => {
+                e.preventDefault();
+                navigator.clipboard
+                  .writeText("rysu986@gmail.com")
+                  .then(() => {
+                    setCopied(true);
+                    setTimeout(() => setCopied(false), 2000);
+                  })
+                  .catch((err) => console.error("Copy failed", err));
+              }}
+            >
+              <FaEnvelope size={20} />
+              <span>rysu986 [at] gmail [dot] com</span>
+            </a>
+          </div>
           <a
             href="https://discord.com/channels/@me"
             target="_blank"
