@@ -22,7 +22,7 @@ function Home() {
   gsap.registerPlugin(ScrollTrigger);
 
   useEffect(() => {
-    document.title = "Ry Suriyathep | Full-Stack Developer";
+    document.title = "Ry Suriyathep | Software Engineer";
   }, []);
 
   useGSAP(() => {
