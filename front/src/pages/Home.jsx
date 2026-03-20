@@ -178,7 +178,7 @@ function Home() {
           </div>
         </div>
 
-        {/* <CommentSection className="comment-section" /> */}
+        <CommentSection className="comment-section" />
         {/* 
         <div className="end-directory">
           <h1>Oh wait there is more!</h1>
