@@ -6,8 +6,31 @@ import professorBThumb from "../assets/media/pbdesc.webp";
 import huntingpackThumb from "../assets/media/huntingpackThumb.webp";
 import portfolio from "../assets/media/portfolio-sc.png";
 import scholarchips from "../assets/media/scholarchips-sc.png";
+import makeapostit from "../assets/media/makeapostit-screenshot.png";
+import tqpeptides from "../assets/media/tqpeptides-ss.png";
 
 const projects = [
+  {
+    id: "10",
+    slug: "makeapost-it",
+    title: "makeapost.it",
+    description:
+      "A fullstack web app for creating and sharing posts, built with React and Supabase.",
+    detailed_description:
+      "makeapost.it is a fullstack web application that lets users create, publish, and share posts with a clean, minimal interface. Built with React and JavaScript on the frontend, it uses Supabase as the backend-as-a-service with a PostgreSQL database for storing user content. The API layer is deployed on Railway for reliable serverless hosting, while the frontend is served via Vercel for fast global delivery. The project demonstrates a modern fullstack architecture with seamless auth, real-time data, and CI/CD deployment.",
+    thumbnail: makeapostit, // replace with your thumbnail import
+    images: [],
+    technologies: [
+      "React.js",
+      "Supabase",
+      "PostgreSQL",
+      "Railway",
+      "Vercel",
+      "OAuth2.0",
+    ],
+    website: "https://makeapost.it",
+    source: "https://github.com/rysuri/makeapost.it",
+  },
   {
     id: "1",
     slug: "calderon-law-website",
@@ -39,6 +62,19 @@ const projects = [
       "PostgreSQL",
     ],
     source: "https://github.com/ignacioparraparra/ScholarChips",
+  },
+  {
+    id: "9",
+    slug: "tq-peptides",
+    title: "TQ Peptides",
+    description:
+      "E-commerce website for a peptide retailer, built and managed on WordPress. WIP. Started March 2026.",
+    detailed_description:
+      "Currently developing and maintaining a professional e-commerce website for TQ Peptides, a retailer specializing in research peptides. Built on WordPress with Hostinger for hosting, the store leverages WooCommerce for product listings, cart management, and secure checkout. Yoast SEO is integrated to drive organic traffic through optimized metadata, sitemaps, and content structure. The site features a clean, trustworthy design tailored to a health and research-focused audience.",
+    thumbnail: tqpeptides, // replace with your thumbnail import
+    images: [],
+    technologies: ["WordPress", "WooCommerce", "Yoast SEO", "Hostinger"],
+    // website: "https://tqpeptides.com", // update if URL differs
   },
   {
     id: "3",
