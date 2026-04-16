@@ -15,9 +15,7 @@ function Portfolio() {
   return (
     <div className="portfolio">
       <div className="header">
-        <div className="name">
-          <p>Ry Suriyathep's</p>
-        </div>
+        <div className="name">{/* <p>Ry Suriyathep's</p> */}</div>
         <h1>Featured Projects</h1>
       </div>
 
