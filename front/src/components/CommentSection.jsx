@@ -52,7 +52,7 @@ function CommentSection() {
   return (
     <>
       {/* Comments carousel */}
-      <section className="py-16 border-t border-neutral-200">
+      <section className="py-28 border-t border-neutral-200">
         <div className="text-center mb-10">
           <h2 className="text-2xl font-bold">Testimonials</h2>
           <p className="text-sm text-neutral-400 mt-2">
@@ -115,7 +115,7 @@ function CommentSection() {
       </section>
 
       {/* Leave a comment */}
-      <section className="py-16 border-t border-neutral-200">
+      <section className="py-28 border-t border-neutral-200">
         <div className="text-center mb-10">
           <h2 className="text-2xl font-bold">Leave a Comment</h2>
           <p className="text-sm text-neutral-400 mt-2">
@@ -173,7 +173,7 @@ function CommentSection() {
             />
           </div>
 
-          <div className="flex flex-col items-center gap-3 pt-1">
+          <div className="flex items-center gap-3 pt-1">
             <button
               type="submit"
               disabled={status === "sending"}
