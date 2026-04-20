@@ -268,7 +268,7 @@ function Home() {
             <a
               href="/projects"
               target="_blank"
-              className="inline-flex items-center gap-2 text-sm hover:text-white transition-colors border border-neutral-700 hover:border-neutral-500 px-5 py-2.5 rounded-full"
+              className="inline-flex items-center gap-2 text-sm text-neutral-600 hover:text-black transition-colors border border-neutral-300 hover:border-neutral-600 px-5 py-2.5 rounded-full"
             >
               View my projects ↗
             </a>
