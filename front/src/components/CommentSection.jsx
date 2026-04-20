@@ -173,7 +173,7 @@ function CommentSection() {
             />
           </div>
 
-          <div className="flex items-center gap-3 pt-1">
+          <div className="flex flex-col items-center gap-3 pt-1">
             <button
               type="submit"
               disabled={status === "sending"}
