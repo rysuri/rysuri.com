@@ -1,4 +1,3 @@
-import "./css/App.css";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -10,8 +9,6 @@ import Projects from "./pages/Projects.jsx";
 import ProjectDetail from "./pages/ProjectDetail.jsx";
 import Contact from "./pages/Contact.jsx";
 
-import GradualBlur from "./components/GradualBlur";
-
 function App() {
   const location = useLocation();
 
@@ -20,9 +17,9 @@ function App() {
   }, [location.pathname]);
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <NavBar />
-      <main className="main-content" key={location.pathname}>
+      <main className="flex-1" key={location.pathname}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/projects" element={<Projects />} />
@@ -30,18 +27,8 @@ function App() {
           <Route path="/contact" element={<Contact />} />
         </Routes>
       </main>
-      {/* <GradualBlur
-        target="parent"
-        position="bottom"
-        height="6rem"
-        strength={2}
-        divCount={5}
-        curve="bezier"
-        exponential={true}
-        opacity={1}
-      /> */}
       <Footer />
-    </>
+    </div>
   );
 }
 

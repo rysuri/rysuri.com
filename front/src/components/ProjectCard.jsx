@@ -1,6 +1,4 @@
 import React from "react";
-import "../css/components/ProjectCard.css";
-
 import { Globe, Github, Youtube } from "lucide-react";
 
 function ProjectCard({
@@ -15,60 +13,39 @@ function ProjectCard({
 }) {
   return (
     <article
-      className="card-container project-show"
+      className="border border-neutral-200 rounded-lg overflow-hidden cursor-pointer hover:border-neutral-400 transition-colors"
       onClick={onClick}
-      style={{ cursor: "pointer" }}
     >
-      <div className="gallery-container">
-        <img src={thumbnail} alt={title} className="card-img" />
-      </div>
+      <img src={thumbnail} alt={title} className="w-full h-48 object-cover" />
 
-      <div className="card-body">
-        <h3 className="card-title">{title}</h3>
-        <p className="card-description">{description}</p>
+      <div className="p-5 flex flex-col gap-3">
+        <h3 className="font-semibold text-base">{title}</h3>
+        <p className="text-sm text-neutral-600 leading-relaxed">{description}</p>
 
-        {technologies && technologies.length > 0 && (
-          <div className="tech-list" aria-hidden>
+        {technologies.length > 0 && (
+          <div className="flex flex-wrap gap-1.5" aria-hidden>
             {technologies.map((t) => (
-              <span key={t} className="tech-badge">
+              <span key={t} className="text-xs px-2 py-0.5 bg-neutral-100 rounded-full text-neutral-600">
                 {t}
               </span>
             ))}
           </div>
         )}
 
-        <div className="card-actions">
+        <div className="flex gap-3 mt-1" onClick={(e) => e.stopPropagation()}>
           {website && (
-            <a
-              className="card-btn"
-              href={website}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <Globe className="info-icon" />
-              Website
+            <a className="flex items-center gap-1 text-xs hover:underline" href={website} target="_blank" rel="noreferrer">
+              <Globe size={13} /> Website
             </a>
           )}
           {showcase && (
-            <a
-              className="card-btn"
-              href={showcase}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <Youtube className="info-icon-show" />
-              Showcase
+            <a className="flex items-center gap-1 text-xs hover:underline" href={showcase} target="_blank" rel="noreferrer">
+              <Youtube size={13} /> Showcase
             </a>
           )}
           {source && (
-            <a
-              className="card-btn card-btn--muted"
-              href={source}
-              target="_blank"
-              rel="noreferrer"
-            >
-              <Github className="info-icon-git" />
-              Source
+            <a className="flex items-center gap-1 text-xs text-neutral-500 hover:underline" href={source} target="_blank" rel="noreferrer">
+              <Github size={13} /> Source
             </a>
           )}
         </div>

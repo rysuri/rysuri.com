@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+body {
+  font-family: "Figtree", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  background-color: rgb(244, 244, 245);
+}

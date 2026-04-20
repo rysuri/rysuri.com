@@ -1,11 +1,9 @@
-import ProjectCard from "../components/ProjectCard";
-import "../css/pages/Projects.css";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import ProjectCard from "../components/ProjectCard";
 import projects from "../data/projects";
 
-function Portfolio() {
+function Projects() {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -13,13 +11,10 @@ function Portfolio() {
   }, []);
 
   return (
-    <div className="portfolio">
-      <div className="header">
-        <div className="name">{/* <p>Ry Suriyathep's</p> */}</div>
-        <h1>Featured Projects</h1>
-      </div>
+    <div className="max-w-5xl mx-auto px-6 py-12">
+      <h1 className="text-3xl font-bold mb-10">Featured Projects</h1>
 
-      <div className="showcase">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {projects.map((project) => (
           <ProjectCard
             key={project.id}
@@ -32,4 +27,4 @@ function Portfolio() {
   );
 }
 
-export default Portfolio;
+export default Projects;

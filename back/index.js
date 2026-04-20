@@ -15,7 +15,7 @@ app.use(
     methods: ["GET", "POST", "OPTIONS"],
     allowedHeaders: ["Content-Type"],
     credentials: true,
-  })
+  }),
 );
 
 app.use(express.json());
@@ -59,18 +59,13 @@ app.post("/contact", async (req, res) => {
   }
 
   try {
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
+    const resend = new Resend(process.env.RESEND_API_KEY);
 
-    await transporter.sendMail({
-      from: email,
-      to: process.env.EMAIL_USER,
-      subject: `New message from ${name}`,
+    await resend.emails.send({
+      from: "onboarding@resend.dev",
+      to: "rysu986@gmail.com",
+      replyTo: email,
+      subject: `rysuri.com/contact - New message from ${name}`,
       html: `<p><strong>From:</strong> ${name} (${email})</p><p>${message}</p>`,
     });
 
