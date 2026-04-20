@@ -231,7 +231,7 @@ function Home() {
           <div className="text-center mb-14">
             <h2 className="text-2xl font-bold">Skills & Technologies</h2>
             <p className="text-sm text-neutral-400 mt-2">
-              Tools I reach for every day
+              Tools I reach for every day.
             </p>
           </div>
           <div className="grid sm:grid-cols-2 gap-4">

@@ -17,6 +17,7 @@
     "express": "^5.1.0",
     "mongoose": "^8.19.1",
     "nodemailer": "^7.0.9",
+    "resend": "^6.12.2",
     "serverless-http": "^4.0.0"
   }
 }

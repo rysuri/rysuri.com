@@ -3,6 +3,7 @@ import cors from "cors";
 import nodemailer from "nodemailer";
 import mongoose from "mongoose";
 import serverless from "serverless-http";
+import { Resend } from "resend";
 
 const app = express();
 
