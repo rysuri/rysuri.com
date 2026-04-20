@@ -97,7 +97,7 @@ const skillIcon = (name) => {
     "C++": "cpp",
     Java: "java",
   };
-  return `/src/assets/skills/${map[name]}.png`;
+  return new URL(`../assets/skills/${map[name]}.png`, import.meta.url).href;
 };
 
 function Home() {
