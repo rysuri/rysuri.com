@@ -104,6 +104,16 @@ const videoClips = [
     label: "Clip 7",
     src: new URL("../assets/videos/clip7.gif", import.meta.url).href,
   },
+  {
+    id: 8,
+    label: "Clip 8",
+    src: new URL("../assets/videos/clip8.gif", import.meta.url).href,
+  },
+  {
+    id: 9,
+    label: "Clip 9",
+    src: new URL("../assets/videos/clip9.gif", import.meta.url).href,
+  },
 ];
 
 const CONSTRAINED = "max-w-[1092px] mx-auto px-5 sm:px-7 lg:px-8 xl:px-0";
