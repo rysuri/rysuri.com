@@ -52,7 +52,7 @@ function CommentSection() {
   return (
     <>
       {/* Comments carousel */}
-      <section className="py-28 border-t border-neutral-200">
+      <section className="py-28 border-neutral-200">
         <div className="text-center mb-10">
           <h2 className="text-2xl font-bold">Testimonials</h2>
           <p className="text-sm text-neutral-400 mt-2">
