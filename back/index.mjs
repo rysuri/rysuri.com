@@ -16,6 +16,7 @@ app.use(
       "https://www.rysuri.com",
       "https://redrockstaging.com",
       "https://www.redrockstaging.com",
+      
     ],
     methods: ["GET", "POST", "OPTIONS"],
     allowedHeaders: ["Content-Type"],
