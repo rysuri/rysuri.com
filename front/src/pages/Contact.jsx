@@ -43,6 +43,8 @@ function Contact() {
 
   return (
     <div className="max-w-xl mx-auto px-6 py-12">
+      <div className="h-16" />
+
       <h1 className="text-3xl font-bold mb-8">Contact Me</h1>
 
       {/* Direct links */}

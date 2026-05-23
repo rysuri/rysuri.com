@@ -24,12 +24,12 @@ function NavBar() {
 
           {/* Desktop links */}
           <nav className="hidden md:flex items-center h-full gap-8">
-            <Link to="/" className={linkClass} onClick={closeMenu}>
+            {/* <Link to="/" className={linkClass} onClick={closeMenu}>
               <User size={14} /> About
             </Link>
             <Link to="/projects" className={linkClass} onClick={closeMenu}>
               <LibraryBig size={14} /> Projects
-            </Link>
+            </Link> */}
             <Link to="/contact" className={linkClass} onClick={closeMenu}>
               <Send size={14} /> Contact
             </Link>
@@ -75,7 +75,7 @@ function NavBar() {
       )}
 
       {/* Spacer so content doesn't sit under the fixed bar */}
-      <div className="h-16" />
+      {/* <div className="h-16" /> */}
     </>
   );
 }

@@ -15,24 +15,22 @@ function Home() {
 
   return (
     <div>
-      {/* Hero sits above the nav */}
       <div className={CONSTRAINED}>
         <HeroSection />
       </div>
 
-      {/* Sections — each has its own id for scroll targeting */}
-      <AboutSection />
+      {/* <AboutSection />
       <ProjectsSection />
       <SkillsSection />
 
-      <VideoSection />
+      <VideoSection /> */}
 
-      {/* Comments */}
-      <div id="comments">
+      {/* <div id="comments">
         <div className={CONSTRAINED}>
           <CommentSection />
         </div>
-      </div>
+      </div> */}
+
     </div>
   );
 }

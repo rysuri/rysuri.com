@@ -15,9 +15,7 @@ function Footer() {
   return (
     <footer className="bg-white border-t border-neutral-100 mt-auto">
       <div className="max-w-[1200px] mx-auto px-8 xl:px-0 py-12">
-        {/* Top section */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 pb-10 border-b border-neutral-100">
-          {/* Brand */}
+        {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-10 pb-10 border-b border-neutral-100">
           <div className="col-span-2 md:col-span-1 flex flex-col gap-3">
             <span className="font-bold tracking-widest text-sm">
               SURIYATHEP
@@ -27,7 +25,6 @@ function Footer() {
             </p>
           </div>
 
-          {/* Navigation */}
           <div className="flex flex-col gap-3">
             <p className="text-xs font-semibold tracking-widest text-neutral-400 uppercase">
               Pages
@@ -51,8 +48,6 @@ function Footer() {
               Contact
             </Link>
           </div>
-
-          {/* Links */}
           <div className="flex flex-col gap-3">
             <p className="text-xs font-semibold tracking-widest text-neutral-400 uppercase">
               Links
@@ -83,7 +78,6 @@ function Footer() {
             </a>
           </div>
 
-          {/* Contact */}
           <div className="flex flex-col gap-3">
             <p className="text-xs font-semibold tracking-widest text-neutral-400 uppercase">
               Contact
@@ -102,10 +96,11 @@ function Footer() {
               <FileText size={13} /> Download Resume
             </a>
           </div>
-        </div>
-
+        </div> */}
         {/* Bottom bar */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+        {/* <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4"></div> */}
+
+        <div className="pt-0 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-neutral-400">
             <strong className="text-neutral-600">rysuri</strong> powered 2025–
             {currentYear}
