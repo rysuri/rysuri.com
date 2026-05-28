@@ -1,183 +1,240 @@
-import express from "express";
-import cors from "cors";
-import mongoose from "mongoose";
-import serverless from "serverless-http";
-import { Resend } from "resend";
+import { useEffect, useState } from "react";
+import { Quote, ChevronLeft, ChevronRight, AlertCircle, CheckCircle2 } from "lucide-react";
 
-import Anthropic from "@anthropic-ai/sdk";
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+function CommentSection() {
+  const [comments, setComments] = useState([]);
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [currentPage, setCurrentPage] = useState(0);
+  const [status, setStatus] = useState(null); // null | "sending" | "sent" | "error"
+  const [errorMessage, setErrorMessage] = useState(null);
 
-const app = express();
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/comments`)
+      .then((res) => res.json())
+      .then((data) => {
+        const sorted = data.sort(
+          (a, b) => new Date(b.timestamp) - new Date(a.timestamp)
+        );
+        setComments(sorted);
+      })
+      .catch((err) => console.error("Error fetching comments:", err));
+  }, []);
 
-// ==============================
-// CORS
-// ==============================
-app.use(
-  cors({
-    origin: [
-      "https://rysuri.com",
-      "https://www.rysuri.com",
-    ],
-    methods: ["GET", "POST", "OPTIONS"],
-    allowedHeaders: ["Content-Type"],
-    credentials: true,
-  }),
-);
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
 
-app.use(express.json());
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus("sending");
+    setErrorMessage(null);
 
-// ==============================
-// MONGO CONNECTION
-// ==============================
-let isConnected = false;
-const connectToDatabase = async () => {
-  if (isConnected) return;
-  await mongoose.connect(process.env.MONGO_URI, {
-    serverSelectionTimeoutMS: 5000,
-  });
-  isConnected = true;
-  console.log("✅ MongoDB connected");
-};
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/comments`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
 
-// ==============================
-// MODELS
-// ==============================
-const commentSchema = new mongoose.Schema({
-  name: String,
-  email: String,
-  message: String,
-  timestamp: { type: Date, default: Date.now },
-});
-const Comment =
-  mongoose.models.Comment || mongoose.model("Comment", commentSchema);
+      if (res.ok) {
+        const newComment = await res.json();
+        setComments((prev) => [newComment, ...prev]);
+        setForm({ name: "", email: "", message: "" });
+        setCurrentPage(0);
+        setStatus("sent");
+        setTimeout(() => setStatus(null), 4000);
+      } else {
+        const body = await res.json().catch(() => ({}));
+        console.error("POST /comments failed:", body);
+        setErrorMessage(
+          body.error || "Something went wrong. Please try again."
+        );
+        setStatus("error");
+      }
+    } catch (err) {
+      console.error("Network error posting comment:", err);
+      setErrorMessage("Could not reach the server. Check your connection.");
+      setStatus("error");
+    }
+  };
 
-// ==============================
-// AI MODERATION
-// ==============================
-const MAX_NAME_CHARS = 50;
-const MAX_COMMENT_CHARS = 500;
-const RATE_LIMIT_WINDOW_MS = 60 * 1000; // 1 minute
-const RATE_LIMIT_MAX_CALLS = 30;
+  const prev = () =>
+    setCurrentPage((i) => (i === 0 ? comments.length - 1 : i - 1));
+  const next = () =>
+    setCurrentPage((i) => (i === comments.length - 1 ? 0 : i + 1));
 
-let moderationCallCount = 0;
-let rateLimitWindowStart = Date.now();
+  const active = comments[currentPage];
 
-const moderateComment = async (name, message) => {
-  // --- Rate limit check ---
-  const now = Date.now();
-  if (now - rateLimitWindowStart > RATE_LIMIT_WINDOW_MS) {
-    moderationCallCount = 0;
-    rateLimitWindowStart = now;
-  }
-  if (moderationCallCount >= RATE_LIMIT_MAX_CALLS) {
-    console.warn("Moderation rate limit hit — rejecting comment.");
-    return 0; // fail closed
-  }
-  moderationCallCount++;
+  return (
+    <>
+      {/* ── Testimonials carousel ── */}
+      <section className="py-28 border-neutral-200">
+        <div className="text-center mb-10">
+          <h2 className="text-2xl font-bold">Testimonials</h2>
+          <p className="text-sm text-neutral-400 mt-2">
+            Don't just take my word for it…
+          </p>
+        </div>
 
-  // --- Truncate inputs ---
-  const safeName = name.slice(0, MAX_NAME_CHARS);
-  const safeMessage = message.slice(0, MAX_COMMENT_CHARS);
+        {comments.length === 0 ? (
+          <p className="text-center text-sm text-neutral-400">
+            No comments yet. Be the first!
+          </p>
+        ) : (
+          <div className="max-w-2xl mx-auto flex flex-col items-center gap-6 text-center">
+            <Quote size={32} className="text-neutral-300" />
 
-  try {
-    const response = await anthropic.messages.create({
-      model: "claude-haiku-4-5-20251001",
-      max_tokens: 10,
-      system:
-        "You are a comment moderator for a developer's personal portfolio website. Given a name and message, reply with ONLY the digit 1 (accept) or ONLY the digit 0 (reject). Accept comments that are genuine, respectful, playful, casual, or even mildly profane — adults are welcome here. Reject only comments that are spam, ads, hate speech, slurs, graphic/sexual content, targeted harassment, or pure gibberish with no real message. When in doubt, accept it. No explanation, no punctuation — just 1 or 0.",
-      messages: [
-        {
-          role: "user",
-          content: `Name: ${safeName} \nMessage: ${safeMessage} `,
-        },
-      ],
-    });
+            <p className="text-lg text-neutral-700 leading-relaxed">
+              "{active.message}"
+            </p>
 
-    const result = response.content[0]?.text?.trim();
-    return result === "1" ? 1 : 0; // anything unexpected = reject
-  } catch (error) {
-    console.error("Moderation error:", error);
-    return 0; // fail closed
-  }
-};
+            <div className="text-center">
+              <p className="text-sm font-semibold">{active.name}</p>
+              <p className="text-xs text-neutral-400 mt-0.5">
+                {new Date(active.timestamp).toLocaleDateString("en-US", {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                })}
+              </p>
+            </div>
 
-// ==============================
-// ROUTES
-// ==============================
-app.get("/", (req, res) => {
-  res.json({ status: "ok", message: "API is running" });
-});
+            {comments.length > 1 && (
+              <div className="flex items-center gap-4 mt-2">
+                <button
+                  onClick={prev}
+                  className="p-1.5 rounded-full border border-neutral-200 hover:bg-neutral-100 transition-colors"
+                  aria-label="Previous comment"
+                >
+                  <ChevronLeft size={16} />
+                </button>
 
-// --- Portfolio Contact Form ---
-app.post("/contact", async (req, res) => {
-  const { name, email, message } = req.body;
-  if (!name || !email || !message) {
-    return res.status(400).json({ error: "All fields required." });
-  }
+                <div className="flex gap-2">
+                  {comments.map((_, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setCurrentPage(i)}
+                      aria-label={`Go to comment ${i + 1}`}
+                      className={`w-2 h-2 rounded-full transition-colors ${i === currentPage ? "bg-neutral-900" : "bg-neutral-300"
+                        }`}
+                    />
+                  ))}
+                </div>
 
-  try {
-    const resend = new Resend(process.env.RESEND_API_KEY);
+                <button
+                  onClick={next}
+                  className="p-1.5 rounded-full border border-neutral-200 hover:bg-neutral-100 transition-colors"
+                  aria-label="Next comment"
+                >
+                  <ChevronRight size={16} />
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+      </section>
 
-    await resend.emails.send({
-      from: "onboarding@resend.dev",
-      to: "rysu986@gmail.com",
-      replyTo: email,
-      subject: `rysuri.com / contact - New message from ${name} `,
-      html: `< p > <strong>From:</strong> ${name} (${email})</p > <p>${message}</p>`,
-    });
+      {/* ── Leave a comment ── */}
+      <section className="py-28 border-t border-neutral-200">
+        <div className="text-center mb-10">
+          <h2 className="text-2xl font-bold">Leave a Comment</h2>
+          <p className="text-sm text-neutral-400 mt-2">
+            Have something to say? I'd love to hear it.
+          </p>
+        </div>
 
-    res.json({ success: true });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: "Failed to send message." });
-  }
-});
+        <form
+          onSubmit={handleSubmit}
+          className="max-w-xl mx-auto flex flex-col gap-4"
+        >
+          <div className="grid sm:grid-cols-2 gap-4">
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-medium text-neutral-500">
+                Name
+              </label>
+              <input
+                type="text"
+                name="name"
+                placeholder="John Doe"
+                value={form.name}
+                onChange={handleChange}
+                required
+                maxLength={50}
+                className="border border-neutral-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-neutral-500 transition-colors bg-white"
+              />
+            </div>
+            <div className="flex flex-col gap-1.5">
+              <label className="text-xs font-medium text-neutral-500">
+                Email
+              </label>
+              <input
+                type="email"
+                name="email"
+                placeholder="john@example.com"
+                value={form.email}
+                onChange={handleChange}
+                required
+                className="border border-neutral-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-neutral-500 transition-colors bg-white"
+              />
+            </div>
+          </div>
 
-// ==============================
-// Comment Section Routes
-// ==============================
-app.get("/comments", async (req, res) => {
-  try {
-    await connectToDatabase();
-    const comments = await Comment.find().sort({ timestamp: -1 });
-    res.json(comments);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch comments." });
-  }
-});
+          <div className="flex flex-col gap-1.5">
+            <div className="flex justify-between items-center">
+              <label className="text-xs font-medium text-neutral-500">
+                Message
+              </label>
+              <span
+                className={`text-xs transition-colors ${form.message.length > 450
+                  ? "text-red-400"
+                  : "text-neutral-300"
+                  }`}
+              >
+                {form.message.length}/500
+              </span>
+            </div>
+            <textarea
+              name="message"
+              placeholder="Write something nice..."
+              value={form.message}
+              onChange={handleChange}
+              required
+              rows={4}
+              maxLength={500}
+              className="border border-neutral-200 rounded-lg px-3 py-2.5 text-sm outline-none focus:border-neutral-500 transition-colors resize-none bg-white"
+            />
+          </div>
 
-app.post("/comments", async (req, res) => {
-  const { name, email, message } = req.body;
-  if (!name || !email || !message)
-    return res.status(400).json({ error: "All fields required." });
+          <div className="flex flex-col items-center gap-3 pt-1">
+            <button
+              type="submit"
+              disabled={status === "sending"}
+              className="px-5 py-2.5 bg-neutral-900 text-white text-sm rounded-lg hover:bg-neutral-700 transition-colors disabled:opacity-50"
+            >
+              {status === "sending" ? "Posting…" : "Post Comment"}
+            </button>
+            <p className="text-xs text-neutral-400">
+              Comments are moderated by{" "}
+              <span className="text-neutral-500 font-medium">Anthropic</span>.
+            </p>
 
-  if (name.length > MAX_NAME_CHARS || message.length > MAX_COMMENT_CHARS)
-    return res.status(400).json({ error: "Input exceeds allowed length." });
+            {status === "sent" && (
+              <div className="flex items-center gap-1.5 text-sm text-green-600">
+                <CheckCircle2 size={15} />
+                Comment posted!
+              </div>
+            )}
 
-  console.log(`[moderation] Checking comment from "${name}"...`);
-  const moderation = await moderateComment(name, message);
-  console.log(`[moderation] Result for "${name}": ${moderation}`);
+            {status === "error" && (
+              <div className="flex items-start gap-1.5 text-sm text-red-500 max-w-sm text-center">
+                <AlertCircle size={15} className="mt-0.5 shrink-0" />
+                <span>{errorMessage}</span>
+              </div>
+            )}
+          </div>
+        </form>
+      </section>
+    </>
+  );
+}
 
-  if (moderation !== 1) {
-    console.warn(`[moderation] Rejected comment from "${name}": "${message}"`);
-    return res.status(400).json({
-      error: "Your comment was flagged by my moderation system and could not be posted."
-    });
-  }
-
-  try {
-    await connectToDatabase();
-    const newComment = new Comment({ name, email, message });
-    await newComment.save();
-    console.log(`[moderation] Comment saved from "${name}"`);
-    res.status(201).json(newComment);
-  } catch (error) {
-    console.error("[db] Failed to save comment:", error.message);
-    res.status(500).json({ error: "Failed to save comment. Please try again." });
-  }
-});
-
-// ==============================
-// LAMBDA HANDLER
-// ==============================
-export const handler = serverless(app);
+export default CommentSection;

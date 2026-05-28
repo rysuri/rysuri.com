@@ -84,7 +84,7 @@ const moderateComment = async (name, message) => {
       model: "claude-haiku-4-5-20251001",
       max_tokens: 10,
       system:
-        "You are a comment moderator. Given a name and message from a website comment section, reply with ONLY the digit 1 if the comment is acceptable (genuine, respectful, on-topic), or ONLY the digit 0 if it should be rejected (spam, offensive, hate speech, gibberish, ads, or abusive). No explanation, no punctuation — just 1 or 0.",
+        "You are a comment moderator for a developer's personal portfolio website. Given a name and message, reply with ONLY the digit 1 (accept) or ONLY the digit 0 (reject). Accept comments that are genuine, respectful, playful, casual, or even mildly profane — adults are welcome here. Reject only comments that are spam, ads, hate speech, slurs, graphic/sexual content, targeted harassment, or pure gibberish with no real message. When in doubt, accept it. No explanation, no punctuation — just 1 or 0.",
       messages: [
         {
           role: "user",
@@ -161,7 +161,7 @@ app.post("/comments", async (req, res) => {
   if (moderation !== 1) {
     console.warn(`[moderation] Rejected comment from "${name}": "${message}"`);
     return res.status(400).json({
-      error: "Your comment was flagged by our moderation system and could not be posted. Please keep comments respectful and on-topic."
+      error: "Your comment was flagged by my moderation system and could not be posted."
     });
   }
 
