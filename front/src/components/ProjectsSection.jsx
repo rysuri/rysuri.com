@@ -1,38 +1,67 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import makeapostit from "../assets/media/makeapostit-screenshot.png";
 import makeapostitgif from "../assets/videos/makeapostit-showcase.gif";
+import scholarchips from "../assets/media/scholarchips-sc.png";
+import scholarchipsgif from "../assets/videos/scholarchips-showcase.gif";
 
 const projects = [
   {
     title: "makeapost.it",
     description:
       "A fullstack web app for creating and sharing posts, built with React and Supabase.",
-    tags: ["React", "Node.js", "PostgreSQL"],
-    link: "makeapost.it",
+    tags: ["React", "Supabase", "PostgreSQL", "OAuth2.0"],
+    link: "https://makeapost.it",
     repo: "https://github.com/rysuri/makeapost.it",
+    slug: "/projects",
     thumbnail: makeapostit,
     gif: makeapostitgif,
   },
   {
-    title: "makeapost.it",
+    title: "ScholarChips",
     description:
-      "A fullstack web app for creating and sharing posts, built with React and Supabase.",
-    tags: ["React", "Node.js", "PostgreSQL"],
-    link: "makeapost.it",
-    repo: "https://github.com/rysuri/makeapost.it",
-    thumbnail: makeapostit,
-    gif: makeapostitgif,
+      "A gamified attendance platform built with React, Node.js, and Supabase — submitted to Rebel Hacks 2026.",
+    tags: ["React", "Node.js", "Express.js"],
+    repo: "https://github.com/ignacioparraparra/ScholarChips",
+    slug: "/projects/",
+    thumbnail: scholarchips,
+    gif: scholarchipsgif,
   },
 ];
 
 const CONSTRAINED = "max-w-[1092px] mx-auto px-5 sm:px-7 lg:px-8 xl:px-0";
 
-function ProjectCard({ project }) {
+function useReveal(threshold = 0.15) {
+  const ref = useRef(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          el.classList.add("revealed");
+          obs.unobserve(el);
+        }
+      },
+      { threshold }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
+  return ref;
+}
+
+function ProjectCard({ project, delay = 0 }) {
   const [hovered, setHovered] = useState(false);
+  const ref = useReveal(0.1);
 
   return (
-    <div
-      className="bg-white border border-blue-100 rounded-xl overflow-hidden flex flex-col hover:shadow-xl transition-shadow duration-300"
+    <a
+      ref={ref}
+      href={project.slug}
+      // target="_blank"
+      rel="noopener noreferrer"
+      className="project-card bg-white border border-blue-100 rounded-xl overflow-hidden flex flex-col hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+      style={{ "--card-delay": `${delay}s` }}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
     >
@@ -55,12 +84,8 @@ function ProjectCard({ project }) {
       </div>
 
       <div className="flex flex-col gap-4 p-8 flex-1">
-        <h3 className="font-semibold text-lg text-neutral-800">
-          {project.title}
-        </h3>
-        <p className="text-[15px] text-neutral-500 leading-relaxed flex-1">
-          {project.description}
-        </p>
+        <h3 className="font-semibold text-lg text-neutral-800">{project.title}</h3>
+        <p className="text-[15px] text-neutral-500 leading-relaxed flex-1">{project.description}</p>
         <div className="flex flex-wrap gap-1.5">
           {project.tags.map((tag) => (
             <span
@@ -72,34 +97,72 @@ function ProjectCard({ project }) {
           ))}
         </div>
         <div className="flex items-center gap-3 pt-1 text-sm text-neutral-400">
-          <a
-            href={project.link}
-            target="_blank"
-            className="hover:text-neutral-900 transition-colors"
-          >
-            Live ↗
-          </a>
-          <span>·</span>
-          <a
-            href={project.repo}
-            target="_blank"
-            className="hover:text-neutral-900 transition-colors"
+          {project.link && (
+            <>
+              <span
+                onClick={(e) => { e.preventDefault(); window.open(project.link, "_blank"); }}
+                className="hover:text-neutral-900 transition-colors cursor-pointer"
+              >
+                Live ↗
+              </span>
+              <span>·</span>
+            </>
+          )}
+          <span
+            onClick={(e) => { e.preventDefault(); window.open(project.repo, "_blank"); }}
+            className="hover:text-neutral-900 transition-colors cursor-pointer"
           >
             GitHub ↗
-          </a>
+          </span>
         </div>
       </div>
-    </div>
+    </a>
   );
 }
 
 function ProjectsSection() {
+  const headerRef = useReveal(0.2);
+  const buttonRef = useReveal(0.5);
+
   return (
     <>
       <style>{`
         @keyframes blueprint-slide {
           from { background-position: 0px 0px, 0px 0px; }
           to   { background-position: 40px 40px, 40px 40px; }
+        }
+
+        .reveal-header {
+          opacity: 0;
+          transform: translateY(20px);
+          transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .reveal-header.revealed {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .project-card {
+          opacity: 0;
+          transform: translateY(28px);
+          transition: opacity 0.55s ease, transform 0.55s ease,
+                      box-shadow 0.3s ease;
+          transition-delay: var(--card-delay, 0s);
+        }
+        .project-card.revealed {
+          opacity: 1;
+          transform: translateY(0);
+        }
+
+        .reveal-button {
+          opacity: 0;
+          transform: translateY(12px);
+          transition: opacity 0.5s ease, transform 0.5s ease;
+          transition-delay: 0.35s;
+        }
+        .reveal-button.revealed {
+          opacity: 1;
+          transform: translateY(0);
         }
       `}</style>
 
@@ -127,7 +190,7 @@ function ProjectsSection() {
         />
 
         <div className={`${CONSTRAINED} relative z-10`}>
-          <div className="text-center mb-14">
+          <div ref={headerRef} className="reveal-header text-center mb-14">
             <h2 className="text-2xl font-bold text-neutral-800">
               Highlighted Projects
             </h2>
@@ -137,12 +200,12 @@ function ProjectsSection() {
           </div>
 
           <div className="grid sm:grid-cols-2 gap-8">
-            {projects.map((project) => (
-              <ProjectCard key={project.title} project={project} />
+            {projects.map((project, i) => (
+              <ProjectCard key={project.title} project={project} delay={i * 0.12} />
             ))}
           </div>
 
-          <div className="text-center mt-10">
+          <div ref={buttonRef} className="reveal-button text-center mt-10">
             <a
               href="/projects"
               target="_blank"
@@ -152,7 +215,7 @@ function ProjectsSection() {
             </a>
           </div>
         </div>
-      </div>
+      </div >
     </>
   );
 }

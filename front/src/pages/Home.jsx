@@ -15,23 +15,23 @@ function Home() {
 
   return (
     <div>
-      <div className={CONSTRAINED}>
+      <div>
         <HeroSection />
       </div>
 
-      {/* <AboutSection />
+      {/* <AboutSection /> */}
       <ProjectsSection />
       <SkillsSection />
 
-      <VideoSection /> */}
+      <VideoSection />
 
-      {/* <div id="comments">
+      <div id="comments">
         <div className={CONSTRAINED}>
           <CommentSection />
         </div>
-      </div> */}
+      </div>
 
-    </div>
+    </div >
   );
 }
 

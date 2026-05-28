@@ -7,8 +7,7 @@ function NavBar() {
   const closeMenu = () => setIsMenuOpen(false);
 
   const linkClass =
-    "inline-flex items-center gap-1 h-full text-sm font-semibold tracking-normal text-neutral-900 transition-colors hover:text-neutral-900/75 relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-black after:opacity-0 after:transition-opacity hover:after:opacity-25";
-
+    "inline-flex items-center gap-1 h-full p-6 text-sm font-semibold tracking-normal text-neutral-900 transition-colors hover:text-neutral-900/75 relative after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-full after:bg-black after:opacity-0 after:transition-opacity hover:after:opacity-25";
   return (
     <>
       <header className="fixed top-0 z-50 h-16 w-screen bg-white border-b border-neutral-100">
@@ -23,13 +22,13 @@ function NavBar() {
           </Link>
 
           {/* Desktop links */}
-          <nav className="hidden md:flex items-center h-full gap-8">
-            {/* <Link to="/" className={linkClass} onClick={closeMenu}>
+          <nav className="hidden md:flex items-center h-full">
+            <Link to="/" className={linkClass} onClick={closeMenu}>
               <User size={14} /> About
             </Link>
             <Link to="/projects" className={linkClass} onClick={closeMenu}>
               <LibraryBig size={14} /> Projects
-            </Link> */}
+            </Link>
             <Link to="/contact" className={linkClass} onClick={closeMenu}>
               <Send size={14} /> Contact
             </Link>

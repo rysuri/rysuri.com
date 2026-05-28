@@ -1,53 +1,84 @@
-import React from "react";
-import { Globe, Github, Youtube } from "lucide-react";
+import React, { useState } from "react";
 
 function ProjectCard({
   title,
   description,
   thumbnail,
-  technologies = [],
+  tags,
+  technologies,
+  link,
   website,
+  repo,
   source,
-  showcase,
   onClick,
 }) {
+  const [hovered, setHovered] = useState(false);
+
+  const displayTags = tags ?? technologies ?? [];
+  const liveUrl = link ?? website;
+  const repoUrl = repo ?? source;
+
   return (
     <article
-      className="border border-neutral-200 rounded-lg overflow-hidden cursor-pointer hover:border-neutral-400 transition-colors"
+      className="group bg-white border border-blue-100 rounded-xl overflow-hidden flex flex-col hover:shadow-xl transition-shadow duration-300 cursor-pointer"
       onClick={onClick}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
-      <img src={thumbnail} alt={title} className="w-full h-48 object-cover" />
+      <div
+        className="relative w-full overflow-hidden bg-neutral-100"
+        style={{ aspectRatio: "16/9" }}
+      >
+        <img
+          src={thumbnail}
+          alt={title}
+          className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+        />
+      </div>
 
-      <div className="p-5 flex flex-col gap-3">
-        <h3 className="font-semibold text-base">{title}</h3>
-        <p className="text-sm text-neutral-600 leading-relaxed">{description}</p>
-
-        {technologies.length > 0 && (
-          <div className="flex flex-wrap gap-1.5" aria-hidden>
-            {technologies.map((t) => (
-              <span key={t} className="text-xs px-2 py-0.5 bg-neutral-100 rounded-full text-neutral-600">
-                {t}
+      <div className="flex flex-col gap-4 p-8 flex-1">
+        <h3 className="font-semibold text-lg text-neutral-800 group-hover:text-blue-500 transition-colors">
+          {title}
+        </h3>
+        <p className="text-[15px] text-neutral-500 leading-relaxed flex-1">
+          {description}
+        </p>
+        <div className="flex flex-wrap gap-1.5">
+          {displayTags.map((tag) => (
+            <span
+              key={tag}
+              className="text-[11px] font-medium px-2 py-0.5 rounded-full bg-blue-50 text-blue-400 border border-blue-100"
+            >
+              {tag}
+            </span>
+          ))}
+        </div>
+        <div
+          className="flex items-center gap-3 pt-1 text-sm text-neutral-400"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {liveUrl && (
+            <>
+              <span
+                onClick={() => window.open(liveUrl, "_blank")}
+                className="hover:text-neutral-900 transition-colors cursor-pointer"
+              >
+                Live ↗
               </span>
-            ))}
-          </div>
-        )}
-
-        <div className="flex gap-3 mt-1" onClick={(e) => e.stopPropagation()}>
-          {website && (
-            <a className="flex items-center gap-1 text-xs hover:underline" href={website} target="_blank" rel="noreferrer">
-              <Globe size={13} /> Website
-            </a>
+              <span>·</span>
+            </>
           )}
-          {showcase && (
-            <a className="flex items-center gap-1 text-xs hover:underline" href={showcase} target="_blank" rel="noreferrer">
-              <Youtube size={13} /> Showcase
-            </a>
+          {repoUrl && (
+            <span
+              onClick={() => window.open(repoUrl, "_blank")}
+              className="hover:text-neutral-900 transition-colors cursor-pointer"
+            >
+              GitHub ↗
+            </span>
           )}
-          {source && (
-            <a className="flex items-center gap-1 text-xs text-neutral-500 hover:underline" href={source} target="_blank" rel="noreferrer">
-              <Github size={13} /> Source
-            </a>
-          )}
+          <span className="ml-auto text-xs text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity">
+            View project →
+          </span>
         </div>
       </div>
     </article>

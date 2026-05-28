@@ -1,99 +1,96 @@
-import { MapPin, GraduationCap, Laptop, Award, Zap } from "lucide-react";
-
 const CONSTRAINED = "max-w-[1092px] mx-auto px-5 sm:px-7 lg:px-8 xl:px-0";
 
-const tldr = [
-  "5+ years building production web apps",
-  "Full-stack: React, Node.js, PostgreSQL, MongoDB",
-  "AWS Certified Cloud Practitioner (Jan 2025)",
-  "Shipped real client projects — not just tutorials",
-  "Currently pursuing CS @ UNLV, graduating 2027",
+const facts = [
+  ["Location", "Las Vegas, Nevada"],
+  ["Role", "Full-Stack Developer"],
+  ["Stack", "React · Node.js · PostgreSQL · MongoDB"],
+  ["Cert", "AWS CCP, Jan 2025"],
+  ["Experience", "5+ years"],
+];
+
+const timeline = [
+  {
+    group: "Now",
+    items: [
+      { title: "Software Engineer", org: "UNLV", tag: "Current" },
+      { title: "B.S. Computer Science", org: "University of Nevada, Las Vegas", tag: "In progress" },
+    ],
+  },
+  {
+    group: "Previously",
+    items: [
+      { title: "Freelance Web Developer", org: "Client work · E-commerce · Design systems", dim: true },
+    ],
+  },
 ];
 
 function AboutSection() {
   return (
-    <div
-      id="about"
-      className="w-full bg-neutral-50 border-b border-neutral-200 py-28 pb-40"
-    >
+    <div id="about" className="w-full bg-neutral-50 border-b border-neutral-200 py-28 pb-40">
       <div className={CONSTRAINED}>
+
         <div className="text-center mb-14">
-          <h2 className="text-2xl font-bold">About Me</h2>
-          <p className="text-sm text-neutral-400 mt-2">
-            The person behind the code.
+          <h2 className="text-2xl font-bold tracking-tight">About Me</h2>
+          <p className="text-neutral-500 mt-2 max-w-xl mx-auto text-sm leading-relaxed">
+            I'm a web developer with over{" "}
+            <span className="text-neutral-700 font-medium">five years</span> of
+            experience building responsive, user-focused applications. My projects
+            range from client websites and e-commerce integrations to personal
+            applications that showcase clean design and reliable performance.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-4">
-          <div className="bg-white border border-neutral-200 rounded-xl p-6 flex flex-col gap-4">
-            <h3 className="font-semibold text-base">Hi, I'm Ry Suriyathep</h3>
-            <ul className="flex flex-col gap-2 text-sm text-neutral-500">
-              <li className="flex items-center gap-2">
-                <MapPin size={14} className="shrink-0" /> Based in Las Vegas,
-                Nevada
-              </li>
-              <li className="flex items-center gap-2">
-                <GraduationCap size={14} className="shrink-0" /> 2nd Year CS
-                Student at UNLV
-              </li>
-              <li className="flex items-center gap-2">
-                <Laptop size={14} className="shrink-0" /> Full-Stack Developer
-              </li>
-              <li className="flex items-center gap-2">
-                <Award size={14} className="shrink-0" /> AWS Cloud Certified
-              </li>
-            </ul>
-            <p className="text-sm text-neutral-500 leading-relaxed">
-              I'm a web developer with over{" "}
-              <strong className="text-neutral-700">five years</strong> of
-              experience building responsive, user-focused applications. I work
-              with modern front-end frameworks like React and AWS.
-              <br />
-              <br />
-              My projects range from client websites and e-commerce integrations
-              to personal applications that showcase clean design and reliable
-              performance.
-            </p>
-          </div>
+        <div className="max-w-lg mx-auto flex flex-col gap-10">
 
-          <div className="bg-white border border-neutral-200 rounded-xl p-6 flex flex-col gap-4">
-            <h3 className="font-semibold text-base">Certifications</h3>
-            <div className="flex items-center gap-4 p-4 rounded-lg border border-neutral-100 bg-neutral-50">
-              <img
-                src="https://images.credly.com/size/340x340/images/00634f82-b07f-4bbd-a6bb-53de397fc3a6/image.png"
-                alt="AWS Certified Cloud Practitioner Badge"
-                className="w-14 h-14 object-contain shrink-0"
-              />
-              <div>
-                <p className="text-sm font-semibold">
-                  AWS Certified Cloud Practitioner
-                </p>
-                <p className="text-xs text-neutral-400 mt-0.5">
-                  Issued January 2025
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-4 bg-neutral-900 rounded-xl p-6 flex flex-col gap-4">
-          <div className="flex items-center gap-2">
-            <Zap size={15} className="text-yellow-400" />
-            <h3 className="font-semibold text-sm text-white tracking-wide">
-              TL;DR — for employers
-            </h3>
-          </div>
-          <ul className="grid sm:grid-cols-2 gap-2">
-            {tldr.map((point) => (
-              <li
-                key={point}
-                className="flex items-start gap-2 text-sm text-neutral-300"
+          {/* Compact meta */}
+          <div>
+            {facts.map(([label, value]) => (
+              <div
+                key={label}
+                className="flex justify-between items-baseline gap-3 py-1.5 border-b border-neutral-200 first:border-t"
               >
-                <span className="mt-1 w-1.5 h-1.5 rounded-full bg-yellow-400 shrink-0" />
-                {point}
-              </li>
+                <span className="text-[9px] tracking-[0.12em] uppercase text-neutral-400 whitespace-nowrap">
+                  {label}
+                </span>
+                <span className="text-[11px] text-neutral-500 text-right">{value}</span>
+              </div>
             ))}
-          </ul>
+          </div>
+
+          {/* Timeline */}
+          <div className="flex flex-col gap-8">
+            {timeline.map(({ group, items }) => (
+              <div key={group}>
+                <p className="text-[9px] tracking-[0.15em] uppercase text-neutral-400 mb-4">{group}</p>
+                <div>
+                  {items.map((item, i) => (
+                    <div key={item.title} className="grid grid-cols-[16px_1fr] gap-x-4">
+                      <div className="flex flex-col items-center">
+                        <div className={`w-[7px] h-[7px] rounded-full mt-[5px] flex-shrink-0 ${item.dim ? "bg-neutral-300" : "bg-neutral-800"}`} />
+                        {i < items.length - 1 && (
+                          <div className="w-px bg-neutral-200 flex-1 mt-1.5" />
+                        )}
+                      </div>
+                      <div className={i < items.length - 1 ? "pb-5" : ""}>
+                        <p className={`leading-tight ${item.dim ? "text-sm font-medium text-neutral-600" : "text-base font-semibold text-neutral-900 tracking-tight"}`}>
+                          {item.title}
+                        </p>
+                        {item.org && (
+                          <p className="text-xs text-neutral-400 mt-0.5">{item.org}</p>
+                        )}
+                        {item.tag && (
+                          <span className="inline-block mt-1.5 text-[10px] text-neutral-500 bg-neutral-100 border border-neutral-200 rounded-full px-2.5 py-0.5">
+                            {item.tag}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+
         </div>
       </div>
     </div>
